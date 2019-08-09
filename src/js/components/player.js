@@ -1,6 +1,6 @@
 'use strict';
-const playerFactory = (name, symbol) => {
+export const playerFactory = (name, symbol) => {
 	return { name, symbol }
 }
 
-module.exports = { playerFactory }
+// module.exports = { playerFactory: playerFactory };
