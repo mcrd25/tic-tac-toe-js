@@ -13,7 +13,9 @@ export const board = (() => {
 	}
 
 	const setCell = (row, col, value) => {
-		grid[row, col] = grid[row, col] === null ? value: null;
+		if (grid[row][col] === null) {
+			grid[row][col] = value
+		}
 	}
 
 	return {
