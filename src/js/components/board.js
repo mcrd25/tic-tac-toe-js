@@ -1,20 +1,16 @@
 export const board = (() => {
-	let grid = [
-		[null, null, null],
-		[null, null, null],
-		[null, null, null]
-	];
+	let grid = Array(9).fill(null)
 
 	const returnBoard = () => {
 		return grid;
 	}
-	const getCell = (row, cell) => {
-		return grid[row][cell]
+	const getCell = (index) => {
+		return grid[index]
 	}
 
-	const setCell = (row, col, value) => {
-		if (grid[row][col] === null) {
-			grid[row][col] = value
+	const setCell = (index, value) => {
+		if (grid[index] === null) {
+			grid[index] = value
 		}
 	}
 

@@ -12,3 +12,10 @@ console.log(player_x);
 
 board.setCell(0, 0, x_sym);
 console.log(board.returnBoard());
+
+const td = document.querySelectorAll('.cells');
+td.forEach(cell => cell.addEventListener('click', function() {
+	board.setCell(this.id, 'X');
+	this.textContent = 'X';
+	console.log('Hello')
+}))
