@@ -1,21 +1,22 @@
 import { playerFactory } from './components/player.js';
 import { board } from './components/board.js';
 
+
 // GAME
+const xSym = 'X';
+const oSym = 'O';
+let playerX = playerFactory('maya', xSym);
+let playerO = playerFactory('john', oSym);
 
-let player_x = playerFactory('maya', 'X');
-let player_o = playerFactory('john', 'X');
-const x_sym = 'X';
-const o_sym = 'O';
 
-console.log(player_x);
-
-board.setCell(0, 0, x_sym);
-console.log(board.returnBoard());
-
+let currentPlayer = playerX
+let otherPlayer = playerO
+let temp;
 const td = document.querySelectorAll('.cells');
 td.forEach(cell => cell.addEventListener('click', function() {
-	board.setCell(this.id, 'X');
-	this.textContent = 'X';
-	console.log('Hello')
+	board.setCell(this.id, currentPlayer.symbol);
+	this.textContent = currentPlayer.symbol;
+	temp = currentPlayer;
+	currentPlayer = otherPlayer;
+	otherPlayer = temp;
 }))
