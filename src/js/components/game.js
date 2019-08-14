@@ -1,12 +1,17 @@
-export const game = ((players, board) => {
-	currentPlayer, otherPlayer = players;
+export const game = (players) => {
+	let [currentPlayer, otherPlayer] = players;
 	const switchPlayers = () => {
 		const temp = currentPlayer;
 		currentPlayer = otherPlayer;
-		otherPlayer = temp;
-	}
+        otherPlayer = temp;
+    }
+    
+    const getPlayer = () => {
+        return currentPlayer
+    }
 
 	return {
-		switchPlayers
+        switchPlayers,
+        getPlayer
 	}
-})();
+};
