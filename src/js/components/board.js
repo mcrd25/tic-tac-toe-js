@@ -5,24 +5,44 @@ export const board = (() => {
 		return grid;
 	}
 	const getCell = (index) => {
-		return grid[index]
+		return grid[index];
 	}
 
 	const setCell = (index, value) => {
 		if (grid[index] === null) {
-			grid[index] = value
+			grid[index] = value;
 		}
 	}
 
 	const winningPositions = () => {
 		// array of winning positions
+		return diagonals().concat(columns()).concat(rows());
 	}
 
 	const diagonals = () => {
-		// array of diagonals
+		return [
+			[getCell(0), getCell(4), getCell(8)],
+			[getCell(2), getCell(4), getCell(6)]
+		];
 	}
 
-	const winningPositionValues = () = {
+	const rows = () => {
+		return [
+			[getCell(0), getCell(1), getCell(2)],
+			[getCell(3), getCell(4), getCell(5)],
+			[getCell(6), getCell(7), getCell(8)]
+		];
+	}
+
+	const columns = () => {
+		return [
+			[getCell(0), getCell(3), getCell(6)],
+			[getCell(1), getCell(4), getCell(7)],
+			[getCell(2), getCell(5), getCell(8)]
+		]
+	}
+
+	const winningPositionValues = () => {
 		// returns bool for values in winning pattern
 	}
 

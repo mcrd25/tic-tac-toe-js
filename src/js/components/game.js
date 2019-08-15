@@ -19,8 +19,8 @@ export const game = (() => {
 		return currentPlayer
 	}
 
-	const getBoardGrid = () => {
-		return gameboard.returnBoard();
+	const getBoard = () => {
+		return gameboard;
 	}
 
 	const gameOver = () => {
@@ -37,12 +37,17 @@ export const game = (() => {
 		//
 	}
 
+	const testPositions = () => {
+		return gameboard.winningPositions();
+	}
+
 	return {
 		setPlayers,
 		setBoard,
 		switchPlayers,
 		getCurrentPlayer,
-		getBoardGrid,
-		gameOver
+		getBoard,
+		gameOver,
+		testPositions
 	}
 })();

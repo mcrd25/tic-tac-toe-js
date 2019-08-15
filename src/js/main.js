@@ -13,7 +13,8 @@ game.setPlayers([playerX, playerO]);
 game.setBoard(board);
 
 td.forEach(cell => cell.addEventListener('click', function() {
-	//board.setCell(this.id, currentPlayer.symbol);
+	game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol);
 	this.textContent = game.getCurrentPlayer().symbol;
 	game.switchPlayers();
+	console.log(game.testPositions());
 }))
