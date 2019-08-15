@@ -14,10 +14,23 @@ export const board = (() => {
 		}
 	}
 
+	const winningPositions = () => {
+		// array of winning positions
+	}
+
+	const diagonals = () => {
+		// array of diagonals
+	}
+
+	const winningPositionValues = () = {
+		// returns bool for values in winning pattern
+	}
+
 	return {
 		returnBoard,
 		getCell,
-		setCell
+		setCell,
+		winningPositions
 	}
 })();
 

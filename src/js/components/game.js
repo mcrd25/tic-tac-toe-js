@@ -12,7 +12,7 @@ export const game = (() => {
 	const switchPlayers = () => {
 		const temp = currentPlayer;
 		currentPlayer = otherPlayer;
-    otherPlayer = temp;
+		otherPlayer = temp;
   }
     
 	const getCurrentPlayer = () => {
@@ -20,7 +20,21 @@ export const game = (() => {
 	}
 
 	const getBoardGrid = () => {
-		return board.returnBoard();
+		return gameboard.returnBoard();
+	}
+
+	const gameOver = () => {
+		// winner
+		// draw
+		// return false
+	}
+
+	const winner = () => {
+		// checks for board.winningPositions
+	}
+
+	const draw = () => {
+		//
 	}
 
 	return {
@@ -28,6 +42,7 @@ export const game = (() => {
 		setBoard,
 		switchPlayers,
 		getCurrentPlayer,
-		getBoardGrid
+		getBoardGrid,
+		gameOver
 	}
 })();
