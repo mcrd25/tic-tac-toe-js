@@ -24,17 +24,28 @@ export const game = (() => {
 	}
 
 	const gameOver = () => {
-		// winner
+		// isWinner
 		// draw
 		// return false
 	}
 
-	const winner = () => {
+	const isWinner = () => {
 		// checks for board.winningPositions
+		const positionsArr = gameboard.winningPositions;
+		for (let index = 0; index < positionsArr.length; index++) {
+			if (isAllEqual(positionsArr[index])) {
+				return true;
+			}
+		} return false
 	}
 
 	const draw = () => {
 		//
+	}
+
+	const isAllEqual = (winningPositions) => {
+		let val = winningPositions[0];
+		winningPositions.every(item => item === val && item !== null) 
 	}
 
 	const testPositions = () => {

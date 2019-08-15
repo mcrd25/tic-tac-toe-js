@@ -42,10 +42,6 @@ export const board = (() => {
 		]
 	}
 
-	const winningPositionValues = () => {
-		// returns bool for values in winning pattern
-	}
-
 	return {
 		returnBoard,
 		getCell,
