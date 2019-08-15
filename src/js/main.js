@@ -15,6 +15,15 @@ game.setBoard(board);
 td.forEach(cell => cell.addEventListener('click', function() {
 	game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol);
 	this.textContent = game.getCurrentPlayer().symbol;
-	game.switchPlayers();
-	console.log(game.testPositions());
+	let gameOver = game.gameOver();
+	if(gameOver) {
+		if (gameOver === 'W') {
+			console.log(`The winner is ${game.getCurrentPlayer().name}`);
+		}else {
+			console.log(`Games is a draw`);
+		}
+		game.getBoard().reset();
+	}
+	if (!gameOver) game.switchPlayers();
+	
 }))

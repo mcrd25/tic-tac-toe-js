@@ -24,32 +24,28 @@ export const game = (() => {
 	}
 
 	const gameOver = () => {
-		// isWinner
-		// draw
-		// return false
+		if (isWinner()) return 'W';
+		if (isDraw()) return 'D';
+		return false;
 	}
 
 	const isWinner = () => {
-		// checks for board.winningPositions
-		const positionsArr = gameboard.winningPositions;
+		const positionsArr = gameboard.winningPositions();
 		for (let index = 0; index < positionsArr.length; index++) {
-			if (isAllEqual(positionsArr[index])) {
+			if (isAllEqual(positionsArr[index], positionsArr[index][0])) {
 				return true;
 			}
-		} return false
+		}
+		return false;
 	}
 
-	const draw = () => {
-		//
+	const isDraw = () => {
+		if (gameboard.returnBoard().some(item => item === null)) return false;
+		return true;
 	}
 
-	const isAllEqual = (winningPositions) => {
-		let val = winningPositions[0];
-		winningPositions.every(item => item === val && item !== null) 
-	}
-
-	const testPositions = () => {
-		return gameboard.winningPositions();
+	const isAllEqual = (winningPositions, val) => {
+		return winningPositions.every(item => item === val && item !== null) 
 	}
 
 	return {
@@ -58,7 +54,6 @@ export const game = (() => {
 		switchPlayers,
 		getCurrentPlayer,
 		getBoard,
-		gameOver,
-		testPositions
+		gameOver
 	}
 })();

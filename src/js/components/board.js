@@ -1,5 +1,5 @@
 export const board = (() => {
-	let grid = Array(9).fill(null)
+	let grid = Array(9).fill(null);
 
 	const returnBoard = () => {
 		return grid;
@@ -12,6 +12,10 @@ export const board = (() => {
 		if (grid[index] === null) {
 			grid[index] = value;
 		}
+	}
+
+	const reset = () => {
+		grid = Array(9).fill(null);
 	}
 
 	const winningPositions = () => {
@@ -46,7 +50,8 @@ export const board = (() => {
 		returnBoard,
 		getCell,
 		setCell,
-		winningPositions
+		winningPositions,
+		reset
 	}
 })();
 
