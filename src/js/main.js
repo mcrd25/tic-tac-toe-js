@@ -8,7 +8,7 @@ const oSym = 'O';
 let playerX = playerFactory('maya', xSym);
 let playerO = playerFactory('john', oSym);
 
-const td = document.querySelectorAll('.cells');
+const td = document.querySelectorAll('.cell');
 game.setPlayers([playerX, playerO]);
 game.setBoard(board);
 

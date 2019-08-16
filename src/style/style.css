@@ -1,11 +1,27 @@
-.gridd :nth-last-child(n+4) {
-  border-bottom: 1px solid black !important;
+h1 {
+  margin-top: 0;
+  padding: 0;
 }
-.gridd .first {
-  border-right: 1px solid black !important;
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
 }
-.gridd .last {
-  border-left: 1px solid black !important;
+
+.cell:nth-last-child(n+4) {
+  border-bottom: 8px solid black;
+}
+
+.first {
+  border-right: 8px solid black;
+}
+
+.last {
+  border-left: 8px solid black;
 }
 
 /*# sourceMappingURL=style.css.map */
