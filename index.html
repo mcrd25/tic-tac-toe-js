@@ -5,32 +5,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="src/style/style.css">
 	<title>Tic Tac Toe</title>
 </head>
 <body>
+	<h1 class="center">Tic Tac Toe</h1>
 	<div class="container">
-		<table class="striped col s12">
-			<tbody>
-				<tr>
-					<td class='cells' id='0'>7</td>
-					<td class='cells' id='1'>8</td>
-					<td class='cells' id='2'>9</td>
-				</tr>
-				<tr>
-					<td class='cells' id='3'>4</td>
-					<td class='cells' id='4'>5</td>
-					<td class='cells' id='5'>6</td>
-				</tr>
-				<tr>
-					<td class='cells' id='6'>1</td>
-					<td class='cells' id='7'>2</td>
-					<td class='cells' id='8'>3</td>
-				</tr>
-			</tbody>
-		</table>		
+		<div class="row center">
+			<div class="gridd col s4 first" id="0">1</div>
+			<div class="gridd col s4" id="1">2</div>
+			<div class="gridd col s4 last" id="2">3</div>
+			<div class="gridd col s4 first" id="3">4</div>
+			<div class="gridd col s4" id="5">5</div>
+			<div class="gridd col s4 last" id="6">6</div>
+			<div class="gridd col s4 first" id="7">7</div>
+			<div class="gridd col s4" id="8">8</div>
+			<div class="gridd col s4 last" id="9">9</div>
+		</div>
 	</div>
-	
 	<script type="module" src="src/js/main.js"></script>
 </body>
 </html>

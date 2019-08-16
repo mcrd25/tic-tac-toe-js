@@ -1,0 +1,12 @@
+.gridd {
+    :nth-last-child(n+4){
+        border-bottom: 1px solid black !important;
+    }
+    
+    .first {
+        border-right: 1px solid black !important; 
+    }
+    .last {
+        border-left: 1px solid black !important;
+    }
+}

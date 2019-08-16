@@ -1,0 +1,11 @@
+.gridd :nth-last-child(n+4) {
+  border-bottom: 1px solid black !important;
+}
+.gridd .first {
+  border-right: 1px solid black !important;
+}
+.gridd .last {
+  border-left: 1px solid black !important;
+}
+
+/*# sourceMappingURL=style.css.map */
