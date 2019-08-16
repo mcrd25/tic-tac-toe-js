@@ -3,11 +3,14 @@ h1 {
   padding: 0;
 }
 
+#grid {
+  width: 480px;
+}
+
 .cell {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
   height: 150px;
   cursor: pointer;
 }
@@ -22,6 +25,10 @@ h1 {
 
 .last {
   border-left: 8px solid black;
+}
+
+.symbol {
+  font-size: 80px;
 }
 
 /*# sourceMappingURL=style.css.map */

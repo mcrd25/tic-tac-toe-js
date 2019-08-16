@@ -11,7 +11,9 @@ export const board = (() => {
 	const setCell = (index, value) => {
 		if (grid[index] === null) {
 			grid[index] = value;
+			return true;
 		}
+		return false;
 	}
 
 	const reset = () => {

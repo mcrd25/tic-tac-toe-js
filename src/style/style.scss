@@ -1,15 +1,19 @@
-$c-width: 100px;
 $c-height: 150px;
 $grid-line: 8px;
 h1 {
     margin-top: 0;
     padding: 0;
 }
+
+#grid {
+    width: 480px;
+}
+
 .cell {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: $c-width;
+
     height: $c-height;
     cursor: pointer;
 }
@@ -24,4 +28,8 @@ h1 {
 
 .last {
     border-left: $grid-line solid black;
+}
+
+.symbol {
+    font-size: 80px;
 }
