@@ -5,6 +5,10 @@ h1 {
     padding: 0;
 }
 
+.container {
+    max-width: 700px;;
+}
+
 #grid {
     width: 480px;
 }
@@ -13,14 +17,9 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-
     height: $c-height;
     cursor: pointer;
-}
-.cell:nth-last-child(n+4){
-    border-bottom: $grid-line solid black;
-}
-    
+}   
 
 .first {
     border-right: $grid-line solid black;
@@ -32,4 +31,18 @@ h1 {
 
 .symbol {
     font-size: 80px;
+}
+
+#start {
+    position: absolute;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 30%;
+}
+
+.row {
+    text-align: center;
 }
