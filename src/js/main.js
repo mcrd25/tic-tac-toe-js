@@ -11,9 +11,8 @@ let playerO = playerFactory('john', oSym);
 const render = (container) => {
 	const root = document.querySelector(container);
 	startScreen(root);
-	// getNames(root);
-	createGridDOM(root, 8);
-	drawGrid();
+	getNames(root);
+	// createGridDOM(root);
 }
 
 const createGridDOM = (root, cells) => {
@@ -36,8 +35,8 @@ const drawGrid = () => {
 	// wait for start click
 	row.addEventListener("click", function() {
 		// remove black screen and text
-		row.classList.remove("deep-purple", "card-panel", "z-depth-2");
-		row.removeChild(document.querySelector("#start"));
+		row.classList.remove("teal", "card-panel", "z-depth-2");
+		row.removeChild(document.querySelector(".input-field"));
 
 		// draw border bottom
 		for (let index = 0; index < cells.length - 3; index++) {
@@ -59,29 +58,48 @@ const startScreen = (root) => {
 	row.classList.add('row');
 
 	row.classList.add("card-panel");
-	row.classList.add("deep-purple", "lighten-4", "z-depth-2");
+	row.classList.add("teal", "lighten-4", "z-depth-2");
 
+	row.style.height = "600px";
 	const h2 = document.createElement('h2');
-	h2.textContent = "CLICK TO START";
+	h2.innerHTML = "Welcome<br><br>Click to Start";
 	h2.id = "start";
 
 	row.appendChild(h2);
 	root.appendChild(row);
 } 
 
-// const getNames = () => {
-// 	const row = document.querySelector('.row');
-// 	const input_x = document.createElement("div");
-// 	const input_o = document.createElement("div");
-// 	input_x.className = "input-field col s6";
-// 	input_o.className = "input-field col s6";
-// 	input_x.innerHTML = '<input id="x_name" type="text" class="validate">'
-// 	input_o.innerHTML = '<input id="o_name" type="text" class="validate">'
-// 	row.appendChild(input_x)
-// 	row.appendChild(input_o)
+const getNames = () => {
+	const mainRow = document.querySelector('.row');
+	const form = document.createElement('form');
+	const firstRow = document.createElement('div');
+	const secondRow = document.createElement('div');
 
-// 	row.addEventListener('click', drawGrid())
-// }
+	const input_x = document.createElement("div");
+	const input_o = document.createElement("div");
+	const title = document.querySelector('#start')
+	
+
+	mainRow.addEventListener('click', function() {
+		// remove black screen and text
+
+		title.textContent = "Enter your names:";
+
+		input_x.className = "input-field col s12";
+		input_o.className = "input-field col s12";
+
+		input_x.innerHTML = '<input id="x_name" placeholder="Name of Player X" type="text" class="validate">';
+		input_o.innerHTML = '<input id="o_name" placeholder="Name of Player O" type="text" class="validate">';
+
+		firstRow.appendChild(input_x);
+		secondRow.appendChild(input_o);
+
+		form.className = 'col s12'
+		form.appendChild(firstRow)
+		form.appendChild(secondRow)
+		mainRow.appendChild(form);
+	})
+}
 
 const getSymbol = (symbol) => {
 	if (symbol === 'O') return '<i class="material-icons symbol">radio_button_unchecked</i>';

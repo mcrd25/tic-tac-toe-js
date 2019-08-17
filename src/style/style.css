@@ -3,7 +3,8 @@ h1 {
   padding: 0; }
 
 .container {
-  max-width: 700px; }
+  max-width: 700px;
+  min-width: 320px; }
 
 #grid {
   width: 480px; }
@@ -31,9 +32,22 @@ h1 {
   margin-right: auto;
   left: 0;
   right: 0;
-  top: 30%; }
+  top: 20%; }
 
 .row {
-  text-align: center; }
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+form {
+  display: flex;
+  justify-content: space-around; }
+  form input[type="text"] {
+    color: white;
+    border-bottom: 2px solid white !important; }
+  form input::placeholder {
+    color: white;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
