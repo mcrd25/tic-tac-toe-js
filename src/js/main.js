@@ -11,13 +11,14 @@ const playerO = playerFactory('adriaan', oSym);
 
 const render = (container) => {
 	const root = document.querySelector(container);
-	// startScreen(root);
-	// getNames(root);
-	createGridDOM(root);
+	startScreen(root);
+	getNames(root);
+	// createGridDOM(root, 8);
+	// drawGrid();
 }
 
 const createGridDOM = (root, cells) => {
-	const grid = document.querySelector('.row');
+	const grid = document.querySelector('#main_id');
 	for (let index = 0; index <= cells; index++) {
 		let cell = document.createElement('div');
 		// could add event listener her to each cell
@@ -27,32 +28,32 @@ const createGridDOM = (root, cells) => {
 	}
 	root.setAttribute("style", "padding-top: 4rem;")
 	root.appendChild(grid);
+	
 }
 
 const drawGrid = () => {
 	const row = document.querySelector('#main_id');
-	console.log(row);
 	const cells = document.querySelectorAll('.cell');
-
 	// wait for start click
-	// row.addEventListener("click", function() {
+	// row.addEventListener("click", function () {
 		// remove black screen and text
-		// row.classList.remove("teal", "card-panel", "z-depth-2");
-		// row.removeChild(document.querySelector(".input-field"));
-		// createGridDOM(row);
+		row.classList.remove("teal", "card-panel", "z-depth-2");
+		row.removeChild(document.querySelector(".input-field"));
+
 		// draw border bottom
 		for (let index = 0; index < cells.length - 3; index++) {
 			cells[index].setAttribute("style", "border-bottom: 8px solid black;")
-		} 
+		}
 
 		// draw other borders
-		[0,3].forEach(i => cells[i].classList.add("first"));
-		[2,5].forEach(i => cells[i].classList.add("last"));
+		[0, 3].forEach(i => cells[i].classList.add("first"));
+		[2, 5].forEach(i => cells[i].classList.add("last"));
 		cells[6].classList.add("first")
 		cells[8].classList.add("last")
 
 	// })
 }
+
 
 const startScreen = (root) => {
 	
@@ -64,7 +65,7 @@ const startScreen = (root) => {
 
 	row.style.height = "600px";
 	const h2 = document.createElement('h2');
-	h2.innerHTML = "Welcome<br><br>Click to Start";
+	h2.innerHTML = "Welcome<br><br>Click Here to Start";
 	h2.id = "start";
 
 	row.appendChild(h2);
@@ -107,8 +108,7 @@ const getPlayers = (form) => {
 		e.preventDefault();
 		const players = [...form.elements].slice(0,2).map(elem => elem.value);
 		setPlayers(players);
-		// drawGrid();
-		createGridDOM(document.querySelector('.container'));
+		// Code to start game here and remove the teal div sjould be a mthod
 	});
 }
 
@@ -117,6 +117,7 @@ const setPlayers = (players) => {
 	const playerX = playerFactory(playerXName, xSym);
 	const playerO = playerFactory(playerOName, oSym);
 	game.setPlayers([playerX, playerO]);
+	
 }
 const getSymbol = (symbol) => {
 	if (symbol === 'O') return '<i class="material-icons symbol">radio_button_unchecked</i>';
