@@ -1,29 +1,36 @@
 h1 {
   margin-top: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 .container {
   max-width: 700px;
-  min-width: 320px; }
+  min-width: 320px;
+}
 
 #grid {
-  width: 700px; }
+  width: 700px;
+}
 
 .cell {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 150px;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .first {
-  border-right: 8px solid black; }
+  border-right: 8px solid black;
+}
 
 .last {
-  border-left: 8px solid black; }
+  border-left: 8px solid black;
+}
 
 .symbol {
-  font-size: 80px; }
+  font-size: 80px;
+}
 
 #start {
   position: absolute;
@@ -32,22 +39,30 @@ h1 {
   margin-right: auto;
   left: 0;
   right: 0;
-  top: 20%; }
+  top: 20%;
+}
 
 .row {
   text-align: center;
+}
+
+.player-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+}
 
 form {
   display: flex;
-  justify-content: space-around; }
-  form input[type="text"] {
-    color: white;
-    border-bottom: 2px solid white !important; }
-  form input::placeholder {
-    color: white;
-    text-align: center; }
+  justify-content: space-around;
+}
+form input[type="text"] {
+  color: white;
+  border-bottom: 2px solid white !important;
+}
+form input::placeholder {
+  color: white;
+  text-align: center;
+}
 
 /*# sourceMappingURL=style.css.map */
