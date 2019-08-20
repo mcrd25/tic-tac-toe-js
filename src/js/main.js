@@ -5,14 +5,15 @@ import { game } from './components/game.js';
 // GAME
 const xSym = 'X';
 const oSym = 'O';
-let playerX = playerFactory('maya', xSym);
-let playerO = playerFactory('john', oSym);
+const playerX = playerFactory('maya', xSym);
+const playerO = playerFactory('adriaan', oSym);
+
 
 const render = (container) => {
 	const root = document.querySelector(container);
-	startScreen(root);
-	getNames(root);
-	// createGridDOM(root);
+	// startScreen(root);
+	// getNames(root);
+	createGridDOM(root);
 }
 
 const createGridDOM = (root, cells) => {
@@ -29,15 +30,16 @@ const createGridDOM = (root, cells) => {
 }
 
 const drawGrid = () => {
-	const row = document.querySelector('.row');
+	const row = document.querySelector('#main_id');
+	console.log(row);
 	const cells = document.querySelectorAll('.cell');
 
 	// wait for start click
-	row.addEventListener("click", function() {
+	// row.addEventListener("click", function() {
 		// remove black screen and text
-		row.classList.remove("teal", "card-panel", "z-depth-2");
-		row.removeChild(document.querySelector(".input-field"));
-
+		// row.classList.remove("teal", "card-panel", "z-depth-2");
+		// row.removeChild(document.querySelector(".input-field"));
+		// createGridDOM(row);
 		// draw border bottom
 		for (let index = 0; index < cells.length - 3; index++) {
 			cells[index].setAttribute("style", "border-bottom: 8px solid black;")
@@ -49,14 +51,14 @@ const drawGrid = () => {
 		cells[6].classList.add("first")
 		cells[8].classList.add("last")
 
-	})
+	// })
 }
 
 const startScreen = (root) => {
 	
 	const row = document.createElement('div')
 	row.classList.add('row');
-
+	row.id = 'main_id';
 	row.classList.add("card-panel");
 	row.classList.add("teal", "lighten-4", "z-depth-2");
 
@@ -70,46 +72,61 @@ const startScreen = (root) => {
 } 
 
 const getNames = () => {
-	const mainRow = document.querySelector('.row');
+	const mainRow = document.querySelector('#main_id');
 	const form = document.createElement('form');
-	const firstRow = document.createElement('div');
-	const secondRow = document.createElement('div');
-
+	const subRow = document.createElement('div');
 	const input_x = document.createElement("div");
 	const input_o = document.createElement("div");
-	const title = document.querySelector('#start')
-	
+	const title = document.querySelector('#start');
+	const input = document.createElement('input');
 
-	mainRow.addEventListener('click', function() {
+	title.addEventListener('click', function() {
 		// remove black screen and text
-
+		form.className = 'col s12';
 		title.textContent = "Enter your names:";
-
+		subRow.className = 'row';
 		input_x.className = "input-field col s12";
 		input_o.className = "input-field col s12";
-
-		input_x.innerHTML = '<input id="x_name" placeholder="Name of Player X" type="text" class="validate">';
-		input_o.innerHTML = '<input id="o_name" placeholder="Name of Player O" type="text" class="validate">';
-
-		firstRow.appendChild(input_x);
-		secondRow.appendChild(input_o);
-
-		form.className = 'col s12'
-		form.appendChild(firstRow)
-		form.appendChild(secondRow)
+		input.type = 'submit';
+		input.className = 'btn teal';
+		input.id = 'submit';
+		input_x.innerHTML = '<input id="x_name" placeholder="Name of Player X" value="Player X" type="text" class="validate">';
+		input_o.innerHTML = '<input id="o_name" placeholder="Name of Player O" value="Player O" type="text" class="validate">';
+		
+		subRow.appendChild(input_x);
+		subRow.appendChild(input_o);
+		subRow.appendChild(input);
+		form.appendChild(subRow);
 		mainRow.appendChild(form);
+		getPlayers(form);
+
 	})
 }
+const getPlayers = (form) => {
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const players = [...form.elements].slice(0,2).map(elem => elem.value);
+		setPlayers(players);
+		// drawGrid();
+		createGridDOM(document.querySelector('.container'));
+	});
+}
 
+const setPlayers = (players) => {
+	const [playerXName, playerOName] = players;
+	const playerX = playerFactory(playerXName, xSym);
+	const playerO = playerFactory(playerOName, oSym);
+	game.setPlayers([playerX, playerO]);
+}
 const getSymbol = (symbol) => {
 	if (symbol === 'O') return '<i class="material-icons symbol">radio_button_unchecked</i>';
 	if (symbol === 'X') return '<i class="material-icons symbol">clear</i>';
-}
+};
 
 render('.container');
 
 const cells = document.querySelectorAll('.cell');
-game.setPlayers([playerX, playerO]);
+// game.setPlayers([playerX, playerO]);
 game.setBoard(board);
 
 cells.forEach(cell => cell.addEventListener('click', function() {
