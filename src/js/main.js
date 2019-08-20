@@ -13,12 +13,12 @@ const render = (container) => {
 	const root = document.querySelector(container);
 	startScreen(root);
 	getNames(root);
-	// createGridDOM(root, 8);
-	// drawGrid();
 }
 
-const createGridDOM = (root, cells) => {
-	const grid = document.querySelector('#main_id');
+const createGridDOM = () => {
+	const root = document.querySelector('.container')
+	const cells = 8;
+	const grid = document.querySelector('#grid');
 	for (let index = 0; index <= cells; index++) {
 		let cell = document.createElement('div');
 		// could add event listener her to each cell
@@ -28,30 +28,27 @@ const createGridDOM = (root, cells) => {
 	}
 	root.setAttribute("style", "padding-top: 4rem;")
 	root.appendChild(grid);
-	
 }
 
 const drawGrid = () => {
-	const row = document.querySelector('#main_id');
+	const row = document.querySelector('#grid');
+	const form = document.querySelector('form');
 	const cells = document.querySelectorAll('.cell');
-	// wait for start click
-	// row.addEventListener("click", function () {
-		// remove black screen and text
-		row.classList.remove("teal", "card-panel", "z-depth-2");
-		row.removeChild(document.querySelector(".input-field"));
+	const start = document.querySelector('#start')
+	row.classList.remove("teal", "card-panel", "z-depth-2");
+	row.removeChild(form);
+	row.removeChild(start);
 
-		// draw border bottom
-		for (let index = 0; index < cells.length - 3; index++) {
-			cells[index].setAttribute("style", "border-bottom: 8px solid black;")
-		}
+	// draw border bottom
+	for (let index = 0; index < cells.length - 3; index++) {
+		cells[index].setAttribute("style", "border-bottom: 8px solid black;")
+	}
 
-		// draw other borders
-		[0, 3].forEach(i => cells[i].classList.add("first"));
-		[2, 5].forEach(i => cells[i].classList.add("last"));
-		cells[6].classList.add("first")
-		cells[8].classList.add("last")
-
-	// })
+	// draw other borders
+	[0, 3].forEach(i => cells[i].classList.add("first"));
+	[2, 5].forEach(i => cells[i].classList.add("last"));
+	cells[6].classList.add("first");
+	cells[8].classList.add("last");
 }
 
 
@@ -59,7 +56,7 @@ const startScreen = (root) => {
 	
 	const row = document.createElement('div')
 	row.classList.add('row');
-	row.id = 'main_id';
+	row.id = 'grid';
 	row.classList.add("card-panel");
 	row.classList.add("teal", "lighten-4", "z-depth-2");
 
@@ -73,7 +70,7 @@ const startScreen = (root) => {
 } 
 
 const getNames = () => {
-	const mainRow = document.querySelector('#main_id');
+	const mainRow = document.querySelector('#grid');
 	const form = document.createElement('form');
 	const subRow = document.createElement('div');
 	const input_x = document.createElement("div");
@@ -108,7 +105,8 @@ const getPlayers = (form) => {
 		e.preventDefault();
 		const players = [...form.elements].slice(0,2).map(elem => elem.value);
 		setPlayers(players);
-		// Code to start game here and remove the teal div sjould be a mthod
+		createGridDOM()
+		drawGrid();
 	});
 }
 
