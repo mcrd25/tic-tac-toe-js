@@ -34,6 +34,8 @@ const createGridDOM = () => {
 	const root = document.querySelector('.container')
 	const cells = 8;
 	const grid = document.querySelector('#grid');
+	grid.setAttribute('style', 'height: 600px;')
+
 	for (let index = 0; index <= cells; index++) {
 		let cell = document.createElement('div');
 		// could add event listener her to each cell
@@ -74,8 +76,7 @@ const startScreen = (root) => {
 	row.id = 'grid';
 	row.classList.add('card-panel');
 	row.classList.add('teal', 'lighten-4', 'z-depth-2');
-
-	row.style.height = '600px';
+	row.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;')
 	const h2 = document.createElement('h2');
 	h2.innerHTML = 'Welcome<br><br>Click Here to Start';
 	h2.id = 'start';
@@ -94,7 +95,6 @@ const getNames = () => {
 	const input = document.createElement('input');
 
 	title.addEventListener('click', function() {
-		// remove black screen and text
 		mainRow.classList.add('player-wrapper');
 		form.className = 'col s12';
 		title.textContent = "Enter your names:";
@@ -104,6 +104,7 @@ const getNames = () => {
 		input.type = 'submit';
 		input.className = 'btn teal';
 		input.id = 'submit';
+		input.value = 'PLAY';
 		input_x.innerHTML = '<input id="x_name" placeholder="Name of Player X" value="Player X" type="text" class="validate">';
 		input_o.innerHTML = '<input id="o_name" placeholder="Name of Player O" value="Player O" type="text" class="validate">';
 		
@@ -126,7 +127,7 @@ const changeCells = (cells) => {
 				if (gameOver === 'W') {
 					console.log(`The winner is ${game.getCurrentPlayer().name}`);
 				} else {
-					console.log(`Games is a draw`);
+					console.log(`Game is a draw`);
 				}
 				game.getBoard().reset();
 			}
