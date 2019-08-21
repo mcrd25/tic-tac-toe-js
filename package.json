@@ -4,7 +4,8 @@
   "description": "tic tac toe game using ES6 JavaScript",
   "main": "main.js",
   "dependencies": {
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "prettier": "^1.18.2"
   },
   "devDependencies": {
     "eslint": "^6.1.0"
