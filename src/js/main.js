@@ -131,7 +131,6 @@ const drawGrid = (children = null) => {
 	if (children) {
 		removeHelper(grid, children)
 	}
-	// draw other borders
 	[0, 3].forEach(i => cells[i].classList.add('first'));
 	[2, 5].forEach(i => cells[i].classList.add('last'));
 	cells[6].classList.add('first');
@@ -174,7 +173,6 @@ const displayResult = (winner = null) => {
 	const grid = document.querySelector('#grid');
 	grid.removeChild(document.querySelector('#player_turn'));
 	grid.classList.add('teal', 'z-depth-2', 'h-600', 'flex-col');
-	// grid.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;');
 	const h2 = document.createElement('h2');
 	if (winner) {
 		h2.innerHTML = `The winner is ${winner}`;
