@@ -126,11 +126,13 @@ const changeCells = (cells) => {
 				if (gameOver === 'W') {
 					removeGrid()
 					displayWinner(game.getCurrentPlayer().name);
-					rematch(game.players);
+					console.log(game.players);
+					askRematch(game.players);
 				} else {
 					removeGrid()
 					displayDraw();
-					rematch(game.players);
+					console.log(game.players);
+					askRematch(game.players);
 				}
 				game.getBoard().reset();
 			}
@@ -148,18 +150,26 @@ const getPlayers = (form) => {
 	});
 }
 
-const rematch = (players) => {
+const askRematch = (players) => {
 	const grid = document.querySelector('#grid');
 	const question = document.createElement('h3');
 	question.innerText = 'Would you like to play again?'
 	const input = document.createElement('input');
+	const input2 = document.createElement('input');
+	const btnDiv = document.createElement('div');
+	btnDiv.className = 'btn-div';
 	input.type = 'submit';
-	input.id = 'submit';
-	input.value = 'Play Again'
-	input.className = 'btn';
-
+	input.id = 'yes';
+	input.value = 'Yes'
+	input.className = 'play-btn btn';
+	input2.type = 'submit';
+	input2.id = 'no';
+	input2.value = 'No';
+	input2.className = 'play-btn btn';
 	grid.appendChild(question);
-	grid.appendChild(input);
+	btnDiv.appendChild(input);
+	btnDiv.appendChild(input2);
+	grid.appendChild(btnDiv);
 
 	input.addEventListener('click', () => {
 		const players = [...players].map(obj => obj.name);

@@ -70,3 +70,15 @@ form {
         text-align: center;
     }
 }
+
+.btn-div {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+}
+.play-btn {
+    display: block;
+    margin: auto;
+    margin-bottom: 2em;
+    width: 5rem;
+}

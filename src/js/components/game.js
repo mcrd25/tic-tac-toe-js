@@ -4,6 +4,10 @@ export const game = (() => {
 	const setPlayers = (players) => {
 		[currentPlayer, otherPlayer] = players;
 	}
+	
+	const getPlayers = () => {
+
+	}
 
 	const setBoard = (board) => {
 		gameboard = board;
@@ -50,6 +54,7 @@ export const game = (() => {
 
 	return {
 		setPlayers,
+		getPlayers,
 		setBoard,
 		switchPlayers,
 		getCurrentPlayer,
