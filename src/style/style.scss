@@ -12,9 +12,19 @@ h1 {
     
 }
 
+.white {
+    color: white;
+}
+
 #grid {
     width: 700px;
     
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
 }
 
 .cell {

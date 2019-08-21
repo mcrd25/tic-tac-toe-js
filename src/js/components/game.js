@@ -6,7 +6,7 @@ export const game = (() => {
 	}
 	
 	const getPlayers = () => {
-
+		return [currentPlayer, otherPlayer];
 	}
 
 	const setBoard = (board) => {
