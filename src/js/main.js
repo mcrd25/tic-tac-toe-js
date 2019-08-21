@@ -114,7 +114,6 @@ const getNames = () => {
 		form.appendChild(subRow);
 		mainRow.appendChild(form);
 		getPlayers(form);
-
 	})
 }
 
@@ -125,9 +124,13 @@ const changeCells = (cells) => {
 			let gameOver = game.gameOver();
 			if (gameOver) {
 				if (gameOver === 'W') {
-					console.log(`The winner is ${game.getCurrentPlayer().name}`);
+					removeGrid()
+					displayWinner(game.getCurrentPlayer().name);
+					rematch(game.players);
 				} else {
-					console.log(`Game is a draw`);
+					removeGrid()
+					displayDraw();
+					rematch(game.players);
 				}
 				game.getBoard().reset();
 			}
@@ -143,6 +146,60 @@ const getPlayers = (form) => {
 		drawGrid();
 		play(players);
 	});
+}
+
+const rematch = (players) => {
+	const grid = document.querySelector('#grid');
+	const question = document.createElement('h3');
+	question.innerText = 'Would you like to play again?'
+	const input = document.createElement('input');
+	input.type = 'submit';
+	input.id = 'submit';
+	input.value = 'Play Again'
+	input.className = 'btn';
+
+	grid.appendChild(question);
+	grid.appendChild(input);
+
+	input.addEventListener('click', () => {
+		const players = [...players].map(obj => obj.name);
+		createGridDOM();
+		drawGrid();
+		play(players);
+	});
+
+}
+
+const displayWinner = (winner) => {
+	const grid = document.querySelector('#grid');
+	grid.classList.add('teal', 'z-depth-4');
+	grid.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;');
+	const h2 = document.createElement('h2');
+	h2.innerHTML = `The winner is ${winner}`;
+	h2.id = 'winner';
+	h2.style.color = 'white';
+
+
+	grid.appendChild(h2);
+}
+
+const displayDraw = () => {
+	const grid = document.querySelector('#grid');
+	grid.classList.add('teal', 'z-depth-4');
+	grid.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;');
+	const h2 = document.createElement('h2');
+	h2.innerHTML = "It's a draw!";
+	h2.id = 'draw';
+	h2.style.color = 'white';
+
+
+	grid.appendChild(h2);
+}
+
+const removeGrid = () => {
+	const grid = document.querySelector('#grid');
+	const cells = document.querySelectorAll('.cell');
+	cells.forEach(cell => grid.removeChild(cell));
 }
 
 render('.container');
