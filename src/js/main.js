@@ -111,12 +111,6 @@ const drawGrid = (children = null) => {
 		removeHelper(grid, children)
 	}
 	
-
-	// draw border bottom
-	for (let index = 0; index < cells.length - 3; index++) {
-		cells[index].setAttribute('style', 'border-bottom: 8px solid black;')
-	}
-
 	// draw other borders
 	[0, 3].forEach(i => cells[i].classList.add('first'));
 	[2, 5].forEach(i => cells[i].classList.add('last'));
@@ -131,17 +125,17 @@ const drawPlayerTurn = (grid) => {
 }
 
 const startScreen = (root) => {
-	
 	const row = document.createElement('div')
+	const h2 = document.createElement('h2');
+	
 	row.classList.add('row');
 	row.id = 'grid';
 	row.classList.add('card-panel');
 	row.classList.add('teal', 'lighten-4', 'z-depth-2');
 	row.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;')
-	const h2 = document.createElement('h2');
+	
 	h2.innerHTML = 'Welcome<br><br>Click Here to Start';
 	h2.id = 'start';
-
 	row.appendChild(h2);
 	root.appendChild(row);
 } 
@@ -151,7 +145,6 @@ const changeCells = (cells) => {
 	const playerTurnDiv = document.querySelector('#player_turn');
 	setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
 	cells.forEach(cell => cell.addEventListener('click', function () {
-		
 		if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
 			this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
 			let gameOver = game.gameOver();
@@ -162,15 +155,14 @@ const changeCells = (cells) => {
 				} else {
 					displayResult();	
 				}
-				askRematch();
 				game.getBoard().reset();
+				askRematch();
+				
 			}
 			if (!gameOver) {
 				game.switchPlayers();
 				setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
 			}
-
-			
 		}
 	}));
 };
@@ -186,7 +178,7 @@ const displayResult = (winner = null) => {
 	} else {
 		h2.innerHTML = "It's a draw!";
 	}
-	h2.classList.add('white');
+	h2.classList.add('white-txt');
 	grid.appendChild(h2);
 }
 const setPlayerTurn = (div, player) => {
@@ -243,33 +235,6 @@ const reset = () => {
 	const grid = document.querySelector('#grid');
 	removeHelper(container, [grid]);
 	render(container);
-}
-
-
-const displayWinner = (winner) => {
-	const grid = document.querySelector('#grid');
-
-	grid.removeChild()
-	grid.classList.add('teal', 'z-depth-2');
-	grid.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;');
-	const h2 = document.createElement('h2');
-	h2.innerHTML = `The winner is ${winner}`;
-	h2.id = 'winner';
-	h2.style.color = 'white';
-	grid.appendChild(h2);
-}
-
-const displayDraw = () => {
-	const grid = document.querySelector('#grid');
-	grid.classList.add('teal', 'z-depth-2');
-	grid.setAttribute('style', 'display: flex; flex-direction: column; height: 600px;');
-	const h2 = document.createElement('h2');
-	h2.innerHTML = "It's a draw!";
-	h2.id = 'draw';
-	h2.style.color = 'white';
-	
-
-	grid.appendChild(h2);
 }
 
 const removeGrid = () => {

@@ -12,7 +12,7 @@ h1 {
     
 }
 
-.white {
+.white-txt {
     color: white;
 }
 
@@ -34,7 +34,9 @@ h1 {
     height: $c-height;
     cursor: pointer;
 }   
-
+.cell:nth-last-child(n+5) {
+    border-bottom: 8px solid black;
+}
 .first {
     border-right: $grid-line solid black;
 }
@@ -89,6 +91,19 @@ form {
 .play-btn {
     display: block;
     margin: auto;
-    margin-bottom: 2em;
-    width: 5rem;
+    margin-bottom: 2rem;
+    width: 10rem;
+}
+
+#player_turn h4{
+    margin-top: 1rem;
+    color: red;
+}
+
+.h-600 {
+    height: 600px;
+}
+
+.pt-4 {
+    padding-top: 4rem;
 }
