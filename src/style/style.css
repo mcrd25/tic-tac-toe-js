@@ -98,4 +98,9 @@ form input::placeholder {
   padding-top: 4rem;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 /*# sourceMappingURL=style.css.map */
