@@ -14,44 +14,10 @@ const setPlayers = (players) => {
   game.setPlayers([playerX, playerO]);
 };
 const getSymbol = (symbol) => {
-  if (symbol === 'O') {
+  if (symbol === 'O')
     return '<i class="material-icons symbol">radio_button_unchecked</i>';
-  } else if (symbol ==='X') {
+  if (symbol === 'X') 
     return '<i class="material-icons symbol">clear</i>';
-  }
-};
-
-const removeGrid = () => {
-  const grid = document.querySelector('#grid');
-  const cells = document.querySelectorAll('.cell');
-  cells.forEach(cell => grid.removeChild(cell));
-};
-
-const changeCells = cells => {
-  const playerTurnDiv = document.querySelector('#player_turn');
-  setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
-  cells.forEach(cell =>
-    cell.addEventListener('click', function() {
-      if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
-        this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
-        let gameOver = game.gameOver();
-        if (gameOver) {
-          removeGrid();
-          if (gameOver === 'W') {
-            displayResult(game.getCurrentPlayer().name);
-          } else {
-            displayResult();
-          }
-          game.getBoard().reset();
-          askRematch();
-        }
-        if (!gameOver) {
-          game.switchPlayers();
-          setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
-        }
-      }
-    })
-  );
 };
 
 const play = (players, replay = false) => {
@@ -69,7 +35,12 @@ const removeHelper = (parent, children) => {
   });
 };
 
-const startScreen = root => {
+// DOM
+const render = (root) => {
+  startScreen(root);
+};
+
+const startScreen = (root) => {
   const row = document.createElement('div');
   const h2 = document.createElement('h2');
   const startBtn = document.createElement('button');
@@ -89,18 +60,17 @@ const startScreen = root => {
   getStarted(startBtn);
 };
 
-// DOM
-const render = root => {
-  startScreen(root);
+const getStarted = (start) => {
+  const form = createPlayerForm(start);
+  getPlayers(form);
 };
-
 const createPlayerForm = eventListener => {
   const mainRow = document.querySelector('#grid');
   const title = document.querySelector('#title');
   const form = document.createElement('form');
   const subRow = document.createElement('div');
-  const input_x = document.createElement('div');
-  const input_o = document.createElement('div');
+  const inputX = document.createElement('div');
+  const inputO = document.createElement('div');
   const input = document.createElement('input');
   eventListener.addEventListener('click', function() {
     mainRow.classList.add('player-wrapper');
@@ -108,23 +78,36 @@ const createPlayerForm = eventListener => {
     form.className = 'col s12';
     title.textContent = 'Enter your names:';
     subRow.className = 'row';
-    input_x.className = 'input-field col s12';
-    input_o.className = 'input-field col s12';
+    inputX.className = 'input-field col s12';
+    inputO.className = 'input-field col s12';
     input.type = 'submit';
     input.className = 'btn teal';
     input.id = 'submit';
     input.value = 'PLAY';
-    input_x.innerHTML =
+    inputX.innerHTML =
       '<input id="x_name" placeholder="Name of Player X" value="Player X" type="text" class="validate">';
-    input_o.innerHTML =
+    inputO.innerHTML =
       '<input id="o_name" placeholder="Name of Player O" value="Player O" type="text" class="validate">';
-    subRow.appendChild(input_x);
-    subRow.appendChild(input_o);
+    subRow.appendChild(inputX);
+    subRow.appendChild(inputO);
     subRow.appendChild(input);
     form.appendChild(subRow);
     mainRow.appendChild(form);
   });
   return form;
+};
+
+const getPlayers = (form) => {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const players = [...form.elements].slice(0, 2).map(elem => elem.value);
+    createGridDOM();
+    const createdForm = document.querySelector('form');
+    const startBtn = document.querySelector('#start');
+    const title = document.querySelector('#title');
+    drawGrid([createdForm, title]);
+    play(players);
+  });
 };
 
 const createGridDOM = () => {
@@ -141,12 +124,6 @@ const createGridDOM = () => {
   }
   root.classList.add('pt-4');
   root.appendChild(grid);
-};
-
-const drawPlayerTurn = grid => {
-  const playerTurnDiv = document.createElement('div');
-  playerTurnDiv.id = 'player_turn';
-  grid.appendChild(playerTurnDiv);
 };
 
 const drawGrid = (children = null) => {
@@ -169,22 +146,30 @@ const drawGrid = (children = null) => {
   cells[8].classList.add('last');
 };
 
-const getPlayers = form => {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const players = [...form.elements].slice(0, 2).map(elem => elem.value);
-    createGridDOM();
-    const createdForm = document.querySelector('form');
-    const startBtn = document.querySelector('#start');
-    const title = document.querySelector('#title');
-    drawGrid([createdForm, title]);
-    play(players);
-  });
+const drawPlayerTurn = grid => {
+  const playerTurnDiv = document.createElement('div');
+  playerTurnDiv.id = 'player_turn';
+  grid.appendChild(playerTurnDiv);
 };
 
-const getStarted = start => {
-  const form = createPlayerForm(start);
-  getPlayers(form);
+const rematch = () => {
+  createGridDOM();
+  drawGrid();
+  play([], true);
+};
+
+const askRematch = () => {
+  const grid = document.querySelector('#grid');
+  const createdElements = createAskRematchDom(grid);
+  const yes = document.querySelector('#yes');
+  const no = document.querySelector('#no');
+  yes.addEventListener('click', () => {
+    removeHelper(grid, createdElements);
+    rematch();
+  });
+  no.addEventListener('click', () => {
+    reset();
+  });
 };
 
 const displayResult = (winner = null) => {
@@ -200,35 +185,34 @@ const displayResult = (winner = null) => {
   h2.classList.add('white-txt');
   grid.appendChild(h2);
 };
+
 const setPlayerTurn = (div, player) => {
   div.innerHTML = `<h4>It is ${player}'s turn.</h4>`;
 };
 
-const rematch = () => {
-  createGridDOM();
-  drawGrid();
-  play([], true);
-};
-
-const reset = () => {
-  const container = document.querySelector('.container');
-  const grid = document.querySelector('#grid');
-  removeHelper(container, [grid]);
-  render(container);
-};
-
-const askRematch = () => {
-  const grid = document.querySelector('#grid');
-  const createdElements = createAskRematchDom(grid);
-  const yes = document.querySelector('#yes');
-  const no = document.querySelector('#no');
-  yes.addEventListener('click', () => {
-    removeHelper(grid, createdElements);
-    rematch();
-  });
-  no.addEventListener('click', () => {
-    reset();
-  });
+const changeCells = (cells) => {
+  const playerTurnDiv = document.querySelector('#player_turn');
+  setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
+  cells.forEach(cell => cell.addEventListener('click', function() {
+    if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
+      this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
+      let gameOver = game.gameOver();
+      if (gameOver) {
+        removeGrid();
+        if (gameOver === 'W') {
+          displayResult(game.getCurrentPlayer().name);
+        } else {
+          displayResult();
+        }
+        game.getBoard().reset();
+        askRematch();
+      }
+      if (!gameOver) {
+        game.switchPlayers();
+        setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
+      }
+    }})
+  );
 };
 
 const createAskRematchDom = grid => {
@@ -253,6 +237,19 @@ const createAskRematchDom = grid => {
   btnDiv.appendChild(input2);
   grid.appendChild(btnDiv);
   return [resultMsg, question, btnDiv];
+};
+
+const reset = () => {
+  const container = document.querySelector('.container');
+  const grid = document.querySelector('#grid');
+  removeHelper(container, [grid]);
+  render(container);
+};
+
+const removeGrid = () => {
+  const grid = document.querySelector('#grid');
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => grid.removeChild(cell));
 };
 
 render(container);

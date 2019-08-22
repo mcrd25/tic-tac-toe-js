@@ -7,9 +7,9 @@ const game = (() => {
     [currentPlayer, otherPlayer] = players;
   };
 
-  const getPlayers = () => {return [currentPlayer, otherPlayer];};
+  const getPlayers = () => [currentPlayer, otherPlayer];
 
-  const setBoard = board => gameboard = board;
+  const setBoard = board => { gameboard = board };
 
   const switchPlayers = () => {
     const temp = currentPlayer;
@@ -17,21 +17,15 @@ const game = (() => {
     otherPlayer = temp;
   };
 
-  const getCurrentPlayer = () => {
-    return currentPlayer;
-  };
+  const getCurrentPlayer = () => currentPlayer;
 
-  const getBoard = () => {
-    return gameboard;
-  };
+  const getBoard = () => gameboard;
 
-  const isAllEqual = (winningPositions, val) => {
-    return winningPositions.every(item => item === val && item !== null);
-  };
+  const isAllEqual = (winningPositions, val) => winningPositions.every(item => item === val && item !== null);
 
   const isWinner = () => {
     const positionsArr = gameboard.winningPositions();
-    for (let index = 0; index < positionsArr.length; index++) {
+    for (let index = 0; index < positionsArr.length; index += 1) {
       if (isAllEqual(positionsArr[index], positionsArr[index][0])) {
         return true;
       }
