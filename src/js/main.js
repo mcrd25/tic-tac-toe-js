@@ -7,16 +7,51 @@ const xSym = 'X';
 const oSym = 'O';
 const container = document.querySelector('.container');
 
-const setPlayers = players => {
+const setPlayers = (players) => {
   const [playerXName, playerOName] = players;
   const playerX = playerFactory(playerXName, xSym);
   const playerO = playerFactory(playerOName, oSym);
   game.setPlayers([playerX, playerO]);
 };
-const getSymbol = symbol => {
-  if (symbol === 'O')
+const getSymbol = (symbol) => {
+  if (symbol === 'O') {
     return '<i class="material-icons symbol">radio_button_unchecked</i>';
-  if (symbol === 'X') return '<i class="material-icons symbol">clear</i>';
+  } else if (symbol ==='X') {
+    return '<i class="material-icons symbol">clear</i>';
+  }
+};
+
+const removeGrid = () => {
+  const grid = document.querySelector('#grid');
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => grid.removeChild(cell));
+};
+
+const changeCells = cells => {
+  const playerTurnDiv = document.querySelector('#player_turn');
+  setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
+  cells.forEach(cell =>
+    cell.addEventListener('click', function() {
+      if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
+        this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
+        let gameOver = game.gameOver();
+        if (gameOver) {
+          removeGrid();
+          if (gameOver === 'W') {
+            displayResult(game.getCurrentPlayer().name);
+          } else {
+            displayResult();
+          }
+          game.getBoard().reset();
+          askRematch();
+        }
+        if (!gameOver) {
+          game.switchPlayers();
+          setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
+        }
+      }
+    })
+  );
 };
 
 const play = (players, replay = false) => {
@@ -32,11 +67,6 @@ const removeHelper = (parent, children) => {
   children.forEach(child => {
     parent.removeChild(child);
   });
-};
-
-// DOM
-const render = root => {
-  startScreen(root);
 };
 
 const startScreen = root => {
@@ -59,10 +89,11 @@ const startScreen = root => {
   getStarted(startBtn);
 };
 
-const getStarted = start => {
-  const form = createPlayerForm(start);
-  getPlayers(form);
+// DOM
+const render = root => {
+  startScreen(root);
 };
+
 const createPlayerForm = eventListener => {
   const mainRow = document.querySelector('#grid');
   const title = document.querySelector('#title');
@@ -96,19 +127,6 @@ const createPlayerForm = eventListener => {
   return form;
 };
 
-const getPlayers = form => {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const players = [...form.elements].slice(0, 2).map(elem => elem.value);
-    createGridDOM();
-    const createdForm = document.querySelector('form');
-    const startBtn = document.querySelector('#start');
-    const title = document.querySelector('#title');
-    drawGrid([createdForm, title]);
-    play(players);
-  });
-};
-
 const createGridDOM = () => {
   const root = document.querySelector('.container');
   const cells = 8;
@@ -123,6 +141,12 @@ const createGridDOM = () => {
   }
   root.classList.add('pt-4');
   root.appendChild(grid);
+};
+
+const drawPlayerTurn = grid => {
+  const playerTurnDiv = document.createElement('div');
+  playerTurnDiv.id = 'player_turn';
+  grid.appendChild(playerTurnDiv);
 };
 
 const drawGrid = (children = null) => {
@@ -145,37 +169,22 @@ const drawGrid = (children = null) => {
   cells[8].classList.add('last');
 };
 
-const drawPlayerTurn = grid => {
-  const playerTurnDiv = document.createElement('div');
-  playerTurnDiv.id = 'player_turn';
-  grid.appendChild(playerTurnDiv);
+const getPlayers = form => {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const players = [...form.elements].slice(0, 2).map(elem => elem.value);
+    createGridDOM();
+    const createdForm = document.querySelector('form');
+    const startBtn = document.querySelector('#start');
+    const title = document.querySelector('#title');
+    drawGrid([createdForm, title]);
+    play(players);
+  });
 };
 
-const changeCells = cells => {
-  const playerTurnDiv = document.querySelector('#player_turn');
-  setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
-  cells.forEach(cell =>
-    cell.addEventListener('click', function() {
-      if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
-        this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
-        let gameOver = game.gameOver();
-        if (gameOver) {
-          removeGrid();
-          if (gameOver === 'W') {
-            displayResult(game.getCurrentPlayer().name);
-          } else {
-            displayResult();
-          }
-          game.getBoard().reset();
-          askRematch();
-        }
-        if (!gameOver) {
-          game.switchPlayers();
-          setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
-        }
-      }
-    })
-  );
+const getStarted = start => {
+  const form = createPlayerForm(start);
+  getPlayers(form);
 };
 
 const displayResult = (winner = null) => {
@@ -193,6 +202,19 @@ const displayResult = (winner = null) => {
 };
 const setPlayerTurn = (div, player) => {
   div.innerHTML = `<h4>It is ${player}'s turn.</h4>`;
+};
+
+const rematch = () => {
+  createGridDOM();
+  drawGrid();
+  play([], true);
+};
+
+const reset = () => {
+  const container = document.querySelector('.container');
+  const grid = document.querySelector('#grid');
+  removeHelper(container, [grid]);
+  render(container);
 };
 
 const askRematch = () => {
@@ -231,25 +253,6 @@ const createAskRematchDom = grid => {
   btnDiv.appendChild(input2);
   grid.appendChild(btnDiv);
   return [resultMsg, question, btnDiv];
-};
-
-const rematch = () => {
-  createGridDOM();
-  drawGrid();
-  play([], true);
-};
-
-const reset = () => {
-  const container = document.querySelector('.container');
-  const grid = document.querySelector('#grid');
-  removeHelper(container, [grid]);
-  render(container);
-};
-
-const removeGrid = () => {
-  const grid = document.querySelector('#grid');
-  const cells = document.querySelectorAll('.cell');
-  cells.forEach(cell => grid.removeChild(cell));
 };
 
 render(container);

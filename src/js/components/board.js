@@ -1,12 +1,9 @@
 const board = (() => {
   let grid = Array(9).fill(null);
 
-  const returnBoard = () => {
-    return grid;
-  };
-  const getCell = index => {
-    return grid[index];
-  };
+  const returnBoard = () => {return grid};
+
+  const getCell = index => {return grid[index]};
 
   const setCell = (index, value) => {
     if (grid[index] === null) {
@@ -18,13 +15,6 @@ const board = (() => {
 
   const reset = () => {
     grid = Array(9).fill(null);
-  };
-
-  const winningPositions = () => {
-    // array of winning positions
-    return diagonals()
-      .concat(columns())
-      .concat(rows());
   };
 
   const diagonals = () => {
@@ -41,6 +31,9 @@ const board = (() => {
       [getCell(6), getCell(7), getCell(8)],
     ];
   };
+
+  const winningPositions = () => {return diagonals()
+    .concat(columns()).concat(rows());};
 
   const columns = () => {
     return [
@@ -59,4 +52,4 @@ const board = (() => {
   };
 })();
 
-export default board
+export default board;

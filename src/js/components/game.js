@@ -1,17 +1,15 @@
 const game = (() => {
-  let currentPlayer, otherPlayer, gameboard;
+  let currentPlayer;
+  let otherPlayer;
+  let gameboard;
 
-  const setPlayers = players => {
+  const setPlayers = (players) => {
     [currentPlayer, otherPlayer] = players;
   };
 
-  const getPlayers = () => {
-    return [currentPlayer, otherPlayer];
-  };
+  const getPlayers = () => {return [currentPlayer, otherPlayer];};
 
-  const setBoard = board => {
-    gameboard = board;
-  };
+  const setBoard = board => gameboard = board;
 
   const switchPlayers = () => {
     const temp = currentPlayer;
@@ -27,10 +25,8 @@ const game = (() => {
     return gameboard;
   };
 
-  const gameOver = () => {
-    if (isWinner()) return 'W';
-    if (isDraw()) return 'D';
-    return false;
+  const isAllEqual = (winningPositions, val) => {
+    return winningPositions.every(item => item === val && item !== null);
   };
 
   const isWinner = () => {
@@ -48,8 +44,10 @@ const game = (() => {
     return true;
   };
 
-  const isAllEqual = (winningPositions, val) => {
-    return winningPositions.every(item => item === val && item !== null);
+  const gameOver = () => {
+    if (isWinner()) return 'W';
+    if (isDraw()) return 'D';
+    return false;
   };
 
   return {
@@ -63,4 +61,4 @@ const game = (() => {
   };
 })();
 
-export default game
+export default game;
