@@ -2,7 +2,6 @@ import playerFactory from './components/player.js';
 import board from './components/board.js';
 import game from './components/game.js';
 
-// GAME
 const xSym = 'X';
 const oSym = 'O';
 const container = document.querySelector('.container');
@@ -13,11 +12,17 @@ const setPlayers = (players) => {
   const playerO = playerFactory(playerOName, oSym);
   game.setPlayers([playerX, playerO]);
 };
+
+// eslint-disable-next-line consistent-return
 const getSymbol = (symbol) => {
-  if (symbol === 'O')
-    return '<i class="material-icons symbol">radio_button_unchecked</i>';
-  if (symbol === 'X') 
-    return '<i class="material-icons symbol">clear</i>';
+  if (symbol === 'O') return '<i class="material-icons symbol">radio_button_unchecked</i>';
+  if (symbol === 'X') return '<i class="material-icons symbol">clear</i>';
+};
+
+const removeHelper = (parent, children) => {
+  children.forEach((child) => {
+    parent.removeChild(child);
+  });
 };
 
 const play = (players, replay = false) => {
@@ -26,45 +31,67 @@ const play = (players, replay = false) => {
     setPlayers(players);
   }
   game.setBoard(board);
+  // eslint-disable-next-line no-use-before-define
   changeCells(cells);
 };
 
-const removeHelper = (parent, children) => {
-  children.forEach(child => {
-    parent.removeChild(child);
+const createGridDOM = () => {
+  const root = document.querySelector('.container');
+  const cells = 8;
+  const grid = document.querySelector('#grid');
+  grid.classList.add('h-600');
+
+  for (let index = 0; index <= cells; index += 1) {
+    const cell = document.createElement('div');
+    cell.id = index;
+    cell.className = 'cell col s4';
+    grid.appendChild(cell);
+  }
+  root.classList.add('pt-4');
+  root.appendChild(grid);
+};
+
+
+const drawPlayerTurn = (grid) => {
+  const playerTurnDiv = document.createElement('div');
+  playerTurnDiv.id = 'player_turn';
+  grid.appendChild(playerTurnDiv);
+};
+
+const drawGrid = (children = null) => {
+  const grid = document.querySelector('#grid');
+  drawPlayerTurn(grid);
+  const cells = document.querySelectorAll('.cell');
+  grid.classList.remove(
+    'teal',
+    'card-panel',
+    'z-depth-2',
+    'player-wrapper',
+    'flex-col',
+  );
+  if (children) {
+    removeHelper(grid, children);
+  }
+  [0, 3].forEach((i) => cells[i].classList.add('first'));
+  [2, 5].forEach((i) => cells[i].classList.add('last'));
+  cells[6].classList.add('first');
+  cells[8].classList.add('last');
+};
+
+const getPlayers = (form) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const players = [...form.elements].slice(0, 2).map((elem) => elem.value);
+    createGridDOM();
+    const createdForm = document.querySelector('form');
+    const title = document.querySelector('#title');
+    drawGrid([createdForm, title]);
+    play(players);
   });
 };
 
-// DOM
-const render = (root) => {
-  startScreen(root);
-};
 
-const startScreen = (root) => {
-  const row = document.createElement('div');
-  const h2 = document.createElement('h2');
-  const startBtn = document.createElement('button');
-  row.classList.add('row');
-  row.id = 'grid';
-  row.classList.add('card-panel');
-  row.classList.add('teal', 'lighten-4', 'z-depth-2', 'h-600', 'flex-col');
-  h2.innerHTML = 'Welcome,<br><br>Click below to start';
-  h2.id = 'title';
-  h2.className = 'white-txt';
-  startBtn.className = 'btn';
-  startBtn.innerHTML = 'Start';
-  startBtn.id = 'start';
-  row.appendChild(h2);
-  row.appendChild(startBtn);
-  root.appendChild(row);
-  getStarted(startBtn);
-};
-
-const getStarted = (start) => {
-  const form = createPlayerForm(start);
-  getPlayers(form);
-};
-const createPlayerForm = eventListener => {
+const createPlayerForm = (eventListener) => {
   const mainRow = document.querySelector('#grid');
   const title = document.querySelector('#title');
   const form = document.createElement('form');
@@ -72,7 +99,7 @@ const createPlayerForm = eventListener => {
   const inputX = document.createElement('div');
   const inputO = document.createElement('div');
   const input = document.createElement('input');
-  eventListener.addEventListener('click', function() {
+  eventListener.addEventListener('click', () => {
     mainRow.classList.add('player-wrapper');
     mainRow.removeChild(eventListener);
     form.className = 'col s12';
@@ -97,59 +124,64 @@ const createPlayerForm = eventListener => {
   return form;
 };
 
-const getPlayers = (form) => {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const players = [...form.elements].slice(0, 2).map(elem => elem.value);
-    createGridDOM();
-    const createdForm = document.querySelector('form');
-    const startBtn = document.querySelector('#start');
-    const title = document.querySelector('#title');
-    drawGrid([createdForm, title]);
-    play(players);
-  });
+const getStarted = (start) => {
+  const form = createPlayerForm(start);
+  getPlayers(form);
 };
 
-const createGridDOM = () => {
-  const root = document.querySelector('.container');
-  const cells = 8;
+const startScreen = (root) => {
+  const row = document.createElement('div');
+  const h2 = document.createElement('h2');
+  const startBtn = document.createElement('button');
+  row.classList.add('row');
+  row.id = 'grid';
+  row.classList.add('card-panel');
+  row.classList.add('teal', 'lighten-4', 'z-depth-2', 'h-600', 'flex-col');
+  h2.innerHTML = 'Welcome,<br><br>Click below to start';
+  h2.id = 'title';
+  h2.className = 'white-txt';
+  startBtn.className = 'btn';
+  startBtn.innerHTML = 'Start';
+  startBtn.id = 'start';
+  row.appendChild(h2);
+  row.appendChild(startBtn);
+  root.appendChild(row);
+  getStarted(startBtn);
+};
+
+const render = (root) => {
+  startScreen(root);
+};
+
+const reset = () => {
+  const container = document.querySelector('.container');
   const grid = document.querySelector('#grid');
-  grid.classList.add('h-600');
-
-  for (let index = 0; index <= cells; index++) {
-    let cell = document.createElement('div');
-    cell.id = index;
-    cell.className = 'cell col s4';
-    grid.appendChild(cell);
-  }
-  root.classList.add('pt-4');
-  root.appendChild(grid);
+  removeHelper(container, [grid]);
+  render(container);
 };
 
-const drawGrid = (children = null) => {
-  const grid = document.querySelector('#grid');
-  drawPlayerTurn(grid);
-  const cells = document.querySelectorAll('.cell');
-  grid.classList.remove(
-    'teal',
-    'card-panel',
-    'z-depth-2',
-    'player-wrapper',
-    'flex-col'
-  );
-  if (children) {
-    removeHelper(grid, children);
-  }
-  [0, 3].forEach(i => cells[i].classList.add('first'));
-  [2, 5].forEach(i => cells[i].classList.add('last'));
-  cells[6].classList.add('first');
-  cells[8].classList.add('last');
-};
+const createAskRematchDom = (grid) => {
+  const resultMsg = document.querySelector('h2');
+  const question = document.createElement('h3');
 
-const drawPlayerTurn = grid => {
-  const playerTurnDiv = document.createElement('div');
-  playerTurnDiv.id = 'player_turn';
-  grid.appendChild(playerTurnDiv);
+  question.innerText = 'Would you like to play again?';
+  const input = document.createElement('input');
+  const input2 = document.createElement('input');
+  const btnDiv = document.createElement('div');
+  btnDiv.className = 'btn-div';
+  input.type = 'submit';
+  input.id = 'yes';
+  input.value = 'Yes';
+  input.className = 'play-btn btn';
+  input2.type = 'submit';
+  input2.id = 'no';
+  input2.value = 'No';
+  input2.className = 'play-btn btn';
+  grid.appendChild(question);
+  btnDiv.appendChild(input);
+  btnDiv.appendChild(input2);
+  grid.appendChild(btnDiv);
+  return [resultMsg, question, btnDiv];
 };
 
 const rematch = () => {
@@ -190,13 +222,19 @@ const setPlayerTurn = (div, player) => {
   div.innerHTML = `<h4>It is ${player}'s turn.</h4>`;
 };
 
+const removeGrid = () => {
+  const grid = document.querySelector('#grid');
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach((cell) => grid.removeChild(cell));
+};
+
 const changeCells = (cells) => {
   const playerTurnDiv = document.querySelector('#player_turn');
   setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
-  cells.forEach(cell => cell.addEventListener('click', function() {
+  cells.forEach((cell) => cell.addEventListener('click', function () {
     if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
       this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
-      let gameOver = game.gameOver();
+      const gameOver = game.gameOver();
       if (gameOver) {
         removeGrid();
         if (gameOver === 'W') {
@@ -211,45 +249,8 @@ const changeCells = (cells) => {
         game.switchPlayers();
         setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
       }
-    }})
-  );
-};
-
-const createAskRematchDom = grid => {
-  const resultMsg = document.querySelector('h2');
-  const question = document.createElement('h3');
-
-  question.innerText = 'Would you like to play again?';
-  const input = document.createElement('input');
-  const input2 = document.createElement('input');
-  const btnDiv = document.createElement('div');
-  btnDiv.className = 'btn-div';
-  input.type = 'submit';
-  input.id = 'yes';
-  input.value = 'Yes';
-  input.className = 'play-btn btn';
-  input2.type = 'submit';
-  input2.id = 'no';
-  input2.value = 'No';
-  input2.className = 'play-btn btn';
-  grid.appendChild(question);
-  btnDiv.appendChild(input);
-  btnDiv.appendChild(input2);
-  grid.appendChild(btnDiv);
-  return [resultMsg, question, btnDiv];
-};
-
-const reset = () => {
-  const container = document.querySelector('.container');
-  const grid = document.querySelector('#grid');
-  removeHelper(container, [grid]);
-  render(container);
-};
-
-const removeGrid = () => {
-  const grid = document.querySelector('#grid');
-  const cells = document.querySelectorAll('.cell');
-  cells.forEach(cell => grid.removeChild(cell));
+    }
+  }));
 };
 
 render(container);
