@@ -1,0 +1,16 @@
+# SASS
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+.DS_Store
+node_modules

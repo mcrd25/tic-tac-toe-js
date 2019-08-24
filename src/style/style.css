@@ -1,0 +1,106 @@
+h1 {
+  margin-top: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 700px;
+  min-width: 320px;
+}
+
+.white-txt {
+  color: white;
+}
+
+#grid {
+  width: 700px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  cursor: pointer;
+}
+
+.cell:nth-last-child(n+5) {
+  border-bottom: 8px solid black;
+}
+
+.first {
+  border-right: 8px solid black;
+}
+
+.last {
+  border-left: 8px solid black;
+}
+
+.symbol {
+  font-size: 80px;
+}
+
+#start {
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 20%;
+}
+
+.row {
+  text-align: center;
+}
+
+.player-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+}
+form input[type="text"] {
+  color: white;
+  border-bottom: 2px solid white !important;
+}
+form input::placeholder {
+  color: white;
+  text-align: center;
+}
+
+.play-btn {
+  display: block;
+  margin: auto;
+  margin-bottom: 2rem;
+  width: 10rem;
+}
+
+#player_turn h4 {
+  margin-top: 1rem;
+  color: red;
+}
+
+.h-600 {
+  height: 600px;
+}
+
+.pt-4 {
+  padding-top: 4rem;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/*# sourceMappingURL=style.css.map */
