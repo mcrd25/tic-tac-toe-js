@@ -111,10 +111,8 @@ const createPlayerForm = (eventListener) => {
     input.className = 'btn teal';
     input.id = 'submit';
     input.value = 'PLAY';
-    inputX.innerHTML =
-      '<input id="x_name" placeholder="Name of Player X" value="Player X" type="text" class="validate">';
-    inputO.innerHTML =
-      '<input id="o_name" placeholder="Name of Player O" value="Player O" type="text" class="validate">';
+    inputX.innerHTML = '<input id="x_name" placeholder="Name of Player X" value="Player X" type="text" class="validate">';
+    inputO.innerHTML = '<input id="o_name" placeholder="Name of Player O" value="Player O" type="text" class="validate">';
     subRow.appendChild(inputX);
     subRow.appendChild(inputO);
     subRow.appendChild(input);
