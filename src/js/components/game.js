@@ -9,7 +9,7 @@ const game = (() => {
 
   const getPlayers = () => [currentPlayer, otherPlayer];
 
-  const setBoard = board => { gameboard = board };
+  const setBoard = (board) => { gameboard = board; };
 
   const switchPlayers = () => {
     const temp = currentPlayer;
@@ -21,7 +21,9 @@ const game = (() => {
 
   const getBoard = () => gameboard;
 
-  const isAllEqual = (winningPositions, val) => winningPositions.every(item => item === val && item !== null);
+  const isAllEqual = (winningPositions, val) => winningPositions.every(
+    (item) => item === val && item !== null,
+  );
 
   const isWinner = () => {
     const positionsArr = gameboard.winningPositions();
@@ -34,7 +36,7 @@ const game = (() => {
   };
 
   const isDraw = () => {
-    if (gameboard.returnBoard().some(item => item === null)) return false;
+    if (gameboard.returnBoard().some((item) => item === null)) return false;
     return true;
   };
 

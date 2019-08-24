@@ -1,4 +1,2 @@
-const playerFactory = (name, symbol) => {
-  return { name, symbol };
-};
+const playerFactory = (name, symbol) => ({ name, symbol });
 export default playerFactory;
