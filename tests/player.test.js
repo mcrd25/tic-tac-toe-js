@@ -1,8 +1,8 @@
-import playerFactory from '../src/js/components/player';
+import PlayerFactory from '../src/js/components/player';
 
 describe('PlayerFactory', () => {
-  const player1 = new playerFactory('Maya', 'X');
-  const player2 = new playerFactory('Adriaan', 'O');
+  const player1 = new PlayerFactory('Maya', 'X');
+  const player2 = new PlayerFactory('Adriaan', 'O');
   describe('attributes of factory', () => {
     test('has name attribute', () => {
       expect(player2.name).not.toBeUndefined();
