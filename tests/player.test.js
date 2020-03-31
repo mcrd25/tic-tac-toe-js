@@ -1,1 +1,5 @@
-import player from '../src/js/components/player';
+import playerFactory from '../src/js/components/player';
+
+describe('PlayerFactory Tests', () => {
+
+});
