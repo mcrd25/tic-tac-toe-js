@@ -1,2 +1,3 @@
-import board from '../src/js/components/board';
+import Board from '../src/js/components/board';
+
 
