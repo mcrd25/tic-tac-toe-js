@@ -1,4 +1,4 @@
-const game = (() => {
+const Game = (() => {
   let currentPlayer;
   let otherPlayer;
   let gameboard;
@@ -57,4 +57,4 @@ const game = (() => {
   };
 })();
 
-export default game;
+export default Game;
