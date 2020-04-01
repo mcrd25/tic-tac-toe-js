@@ -1,6 +1,6 @@
-import playerFactory from './components/player.js';
-import board from './components/board.js';
-import game from './components/game.js';
+import PlayerFactory from './components/player.js';
+import Board from './components/board.js';
+import Game from './components/game.js';
 
 const xSym = 'X';
 const oSym = 'O';
@@ -8,9 +8,9 @@ const container = document.querySelector('.container');
 
 const setPlayers = (players) => {
   const [playerXName, playerOName] = players;
-  const playerX = playerFactory(playerXName, xSym);
-  const playerO = playerFactory(playerOName, oSym);
-  game.setPlayers([playerX, playerO]);
+  const playerX = PlayerFactory(playerXName, xSym);
+  const playerO = PlayerFactory(playerOName, oSym);
+  Game.setPlayers([playerX, playerO]);
 };
 
 // eslint-disable-next-line consistent-return
@@ -30,7 +30,7 @@ const play = (players, replay = false) => {
   if (replay === false) {
     setPlayers(players);
   }
-  game.setBoard(board);
+  Game.setBoard(Board);
   // eslint-disable-next-line no-use-before-define
   changeCells(cells);
 };
@@ -228,24 +228,24 @@ const removeGrid = () => {
 
 const changeCells = (cells) => {
   const playerTurnDiv = document.querySelector('#player_turn');
-  setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
+  setPlayerTurn(playerTurnDiv, Game.getCurrentPlayer().name);
   cells.forEach((cell) => cell.addEventListener('click', function () {
-    if (game.getBoard().setCell(this.id, game.getCurrentPlayer().symbol)) {
-      this.innerHTML = getSymbol(game.getCurrentPlayer().symbol);
-      const gameOver = game.gameOver();
+    if (Game.getBoard().setCell(this.id, Game.getCurrentPlayer().symbol)) {
+      this.innerHTML = getSymbol(Game.getCurrentPlayer().symbol);
+      const gameOver = Game.gameOver();
       if (gameOver) {
         removeGrid();
         if (gameOver === 'W') {
-          displayResult(game.getCurrentPlayer().name);
+          displayResult(Game.getCurrentPlayer().name);
         } else {
           displayResult();
         }
-        game.getBoard().reset();
+        Game.getBoard().reset();
         askRematch();
       }
       if (!gameOver) {
-        game.switchPlayers();
-        setPlayerTurn(playerTurnDiv, game.getCurrentPlayer().name);
+        Game.switchPlayers();
+        setPlayerTurn(playerTurnDiv, Game.getCurrentPlayer().name);
       }
     }
   }));
