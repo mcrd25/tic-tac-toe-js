@@ -1,6 +1,6 @@
-import PlayerFactory from './components/player.js';
-import Board from './components/board.js';
-import Game from './components/game.js';
+import PlayerFactory from './components/player';
+import Board from './components/board';
+import Game from './components/game';
 
 const xSym = 'X';
 const oSym = 'O';
