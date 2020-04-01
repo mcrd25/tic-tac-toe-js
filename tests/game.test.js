@@ -26,7 +26,8 @@ describe('Game', () => {
     Board.setCell(0, 'X');
     Board.setCell(1, 'X');
     Board.setCell(2, 'X');
-  }
+  };
+
   describe('setPlayers(players)', () => {
     test('should 2 set players for game from array of two undefineds to array of two PlayerFactory objects', () => {
       expect(Game.getPlayers()).toStrictEqual([undefined, undefined]);
