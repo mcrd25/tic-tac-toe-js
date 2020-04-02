@@ -1,4 +1,4 @@
-const board = (() => {
+const Board = (() => {
   let grid = Array(9).fill(null);
 
   const returnBoard = () => grid;
@@ -51,4 +51,4 @@ const board = (() => {
   };
 })();
 
-export default board;
+export default Board;
